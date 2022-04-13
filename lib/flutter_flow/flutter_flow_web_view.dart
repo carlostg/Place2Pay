@@ -26,8 +26,19 @@ class FlutterFlowWebView extends StatefulWidget {
 }
 
 class _FlutterFlowWebViewState extends State<FlutterFlowWebView> {
+  WebViewXController webviewController;
   @override
   Widget build(BuildContext context) => WebViewX(
+        onWebViewCreated: (controller) => webviewController = controller,
+        onPageFinished: (url) {
+          print('New website: $url');
+          if (url == 'https://www.churchspr.com/') {
+            Navigator.pop(context);
+          }
+        },
+        onPageStarted: (url) {
+          // My startup code
+        },
         key: webviewKey,
         width: widget.width,
         height: widget.height,
