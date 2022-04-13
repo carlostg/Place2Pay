@@ -276,8 +276,8 @@ class _ProcessPaymentWidgetState extends State<ProcessPaymentWidget> {
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryBackground,
                     ),
-                    child: Lottie.network(
-                      'https://assets7.lottiefiles.com/packages/lf20_taDv2I.json',
+                    child: Lottie.asset(
+                      'assets/lottie_animations/invoice_lottie.json',
                       width: 50,
                       height: 50,
                       fit: BoxFit.contain,
