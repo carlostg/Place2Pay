@@ -209,26 +209,62 @@ class _PaymentResponseDetailsWidgetState
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   12, 12, 12, 0),
-                                          child: Text(
-                                            getJsonField(
-                                              paymentListItem,
-                                              r'''$.status.date''',
-                                            ).toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  'Date:',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Text(
+                                                  getJsonField(
+                                                    paymentListItem,
+                                                    r'''$.status.date''',
+                                                  ).toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   12, 12, 12, 12),
-                                          child: Text(
-                                            getJsonField(
-                                              paymentListItem,
-                                              r'''$.status.status''',
-                                            ).toString(),
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1,
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: Text(
+                                                  'Status:',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Text(
+                                                  getJsonField(
+                                                    paymentListItem,
+                                                    r'''$.status.status''',
+                                                  ).toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
