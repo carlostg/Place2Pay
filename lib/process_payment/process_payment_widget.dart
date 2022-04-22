@@ -121,134 +121,140 @@ class _ProcessPaymentWidgetState extends State<ProcessPaymentWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
-                              child: TextFormField(
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  'tFTotalController',
-                                  Duration(milliseconds: 2000),
-                                  () => setState(() {}),
-                                ),
-                                controller: tFTotalController,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelText: 'Total',
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  hintText: 'Enter total price',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
+                    if (responsiveVisibility(
+                      context: context,
+                      phone: false,
+                    ))
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 8, 0, 8),
+                                child: TextFormField(
+                                  onChanged: (_) => EasyDebounce.debounce(
+                                    'tFTotalController',
+                                    Duration(milliseconds: 2000),
+                                    () => setState(() {}),
+                                  ),
+                                  controller: tFTotalController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Total',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                    hintText: 'Enter total price',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 12,
+                                            .secondaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryColor,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            12, 8, 8, 8),
+                                    suffixIcon: tFTotalController
+                                            .text.isNotEmpty
+                                        ? InkWell(
+                                            onTap: () => setState(
+                                              () => tFTotalController.clear(),
+                                            ),
+                                            child: Icon(
+                                              Icons.clear,
+                                              color: Color(0xFF757575),
+                                              size: 22,
+                                            ),
+                                          )
+                                        : null,
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 14,
                                         fontWeight: FontWeight.normal,
                                       ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryColor,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          12, 8, 8, 8),
-                                  suffixIcon: tFTotalController.text.isNotEmpty
-                                      ? InkWell(
-                                          onTap: () => setState(
-                                            () => tFTotalController.clear(),
-                                          ),
-                                          child: Icon(
-                                            Icons.clear,
-                                            color: Color(0xFF757575),
-                                            size: 22,
-                                          ),
-                                        )
-                                      : null,
+                                  keyboardType: TextInputType.number,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                    ),
-                                keyboardType: TextInputType.number,
                               ),
                             ),
-                          ),
-                          InkWell(
-                            onTap: () async {
-                              oPayload = await actions.createPayload();
-                              oCallPayment = await CallPaymentCall.call(
-                                login: getJsonField(
-                                  oPayload,
-                                  r'''$.auth.login''',
-                                ).toString(),
-                                tranKey: getJsonField(
-                                  oPayload,
-                                  r'''$.auth.tranKey''',
-                                ).toString(),
-                                nonce: getJsonField(
-                                  oPayload,
-                                  r'''$.auth.nonce''',
-                                ).toString(),
-                                seed: getJsonField(
-                                  oPayload,
-                                  r'''$.auth.seed''',
-                                ).toString(),
-                                total: double.parse(tFTotalController.text),
-                                expiration: getJsonField(
-                                  oPayload,
-                                  r'''$.expiration''',
-                                ).toString(),
-                              );
-                              setState(() => FFAppState().payUrl = getJsonField(
-                                    (oCallPayment?.jsonBody ?? ''),
-                                    r'''$.processUrl''',
-                                  ).toString());
+                            InkWell(
+                              onTap: () async {
+                                oPayload = await actions.createPayload();
+                                oCallPayment = await CallPaymentCall.call(
+                                  login: getJsonField(
+                                    oPayload,
+                                    r'''$.auth.login''',
+                                  ).toString(),
+                                  tranKey: getJsonField(
+                                    oPayload,
+                                    r'''$.auth.tranKey''',
+                                  ).toString(),
+                                  nonce: getJsonField(
+                                    oPayload,
+                                    r'''$.auth.nonce''',
+                                  ).toString(),
+                                  seed: getJsonField(
+                                    oPayload,
+                                    r'''$.auth.seed''',
+                                  ).toString(),
+                                  total: double.parse(tFTotalController.text),
+                                  expiration: getJsonField(
+                                    oPayload,
+                                    r'''$.expiration''',
+                                  ).toString(),
+                                );
+                                setState(
+                                    () => FFAppState().payUrl = getJsonField(
+                                          (oCallPayment?.jsonBody ?? ''),
+                                          r'''$.processUrl''',
+                                        ).toString());
 
-                              setState(() {});
-                            },
-                            child: Container(
-                              width: 48,
-                              height: 50,
-                              decoration: BoxDecoration(),
-                              child: Icon(
-                                Icons.refresh_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                size: 24,
+                                setState(() {});
+                              },
+                              child: Container(
+                                width: 48,
+                                height: 50,
+                                decoration: BoxDecoration(),
+                                child: Icon(
+                                  Icons.refresh_rounded,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  size: 24,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.78,
